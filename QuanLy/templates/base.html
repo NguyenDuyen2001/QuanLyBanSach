@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TRANG CHỦ</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <style>
+        .card-title {
+                display: block;
+            white-space: nowrap;
+            width: 100%;
+            text-overflow: ellipsis;
+
+            overflow: hidden;
+    }
+
+
+
+    </style>
+</head>
+<body class="bg-light">
+<h1 align="center"></h1>
+
+
+<!--   Hiển thị Logo và danh mục trên header-->
+<nav class="navbar navbar-expand-sm avbar-dark" style=" background-color: #ece0e0; font-weight:bold ">
+    <div class="container-fluid">
+        <a class="navbar-brand" style=" color: #8A201D " href="#">Kien-Bookstore</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-body" href="#">Trang chủ</a>
+                </li>
+
+<!--&lt;!&ndash;                danh mục 1&ndash;&gt;-->
+<!--                {% for cate in categories %}-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link text-body" href="/?category_id={{cate.id}}"> {{ cate.name }}</a>-->
+<!--                </li>-->
+<!--                {% endfor %}-->
+
+
+                <!--                Danh mục sản phẩm-->
+<!--                <div class="dropdown">-->
+<!--                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"-->
+<!--                            aria-expanded="false">-->
+<!--                        Danh mục-->
+<!--                    </button>-->
+<!--                    <ul class="dropdown-menu">-->
+<!--                        {% for cate in categories %}-->
+<!--                        <li class="dropdown-item" href="/?category_id={{cate.id}}"> {{ cate.name }}</li>-->
+<!--                        {% endfor %}-->
+<!--                    </ul>-->
+
+<!--                </div>-->
+
+                {% if current_user.is_authenticated %}
+                <lic class="nav-item">
+                    <a class="nav-link text-success" href="/">
+                        <image src="{{ current_user.avatar}}" width="40" class="rounded-circle"/>
+                        {{ current_user.name }}
+                    </a>
+                </lic>
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="/logout">Đăng xuất</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link text-warning" href="/login">Đăng nhập</a>
+                </li>
+                {% endif %}
+
+            </ul>
+            <!--            Tìm kiếm -->
+            <form class="d-flex" action="/">
+                <input class="form-control me-2" name="kw" type="text" placeholder="Nhập tên sản phẩm">
+                <button class="btn btn-primary" type="submit">Tìm</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<!--Footer trang web-->
+<div class="mt-1 p-2 text-white " style="background-color: #8A201D ">
+    <!--  <h1>Copyright by Kien Bookstore</h1>-->
+    <p> Copyright by Kien Bookstore</p>
+</div>
+
+
+</body>
+</html>

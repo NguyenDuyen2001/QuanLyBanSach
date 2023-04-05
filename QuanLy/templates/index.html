@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<!--Phân chia khung và hiển thị sản phẩm lên trang chủ-->
+<div class="container">
+    {% if products %}
+    <div class="row">
+        {% for p in products %}
+        <div class="col-md-3" style=" padding:0.5rem ">
+            <div class="card">
+                <img class="card-img-top" src="{{ p.image }}" alt="{{ p.name }}">
+                <div class="card-body">
+                    <h8 class="card-title" title="{{ p.name }}">{{ p.name }}</h8>
+                    <h6 class="text-danger"> {{ p.price }} VNĐ </h6>
+                    <a href="/products/{{ p.id }}" class="btn btn-dark">Xem chi tiết</a>
+                    <a href="#" class="btn btn-warning">Thanh toán</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="alter alter-info">KHÔNG có sản phẩm nào!!</p>
+    {% endif %}
+
+</div>
+{% endblock %}
