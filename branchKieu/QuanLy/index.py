@@ -16,9 +16,6 @@ def admin():
 def login():
     return render_template('login.html')
 
-@app.route("/arlets")
-def arlets():
-    return render_template('arlets.html')
 
 @app.route("/admin/register")
 def register():
