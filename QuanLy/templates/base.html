@@ -20,6 +20,7 @@
 
 
 
+
     </style>
 </head>
 <body class="bg-light">
@@ -39,27 +40,27 @@
                     <a class="nav-link text-body" href="#">Trang chủ</a>
                 </li>
 
-<!--&lt;!&ndash;                danh mục 1&ndash;&gt;-->
-<!--                {% for cate in categories %}-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link text-body" href="/?category_id={{cate.id}}"> {{ cate.name }}</a>-->
-<!--                </li>-->
-<!--                {% endfor %}-->
+                <!--&lt;!&ndash;                danh mục 1&ndash;&gt;-->
+                <!--                {% for cate in categories %}-->
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="nav-link text-body" href="/?category_id={{cate.id}}"> {{ cate.name }}</a>-->
+                <!--                </li>-->
+                <!--                {% endfor %}-->
 
 
                 <!--                Danh mục sản phẩm-->
-<!--                <div class="dropdown">-->
-<!--                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"-->
-<!--                            aria-expanded="false">-->
-<!--                        Danh mục-->
-<!--                    </button>-->
-<!--                    <ul class="dropdown-menu">-->
-<!--                        {% for cate in categories %}-->
-<!--                        <li class="dropdown-item" href="/?category_id={{cate.id}}"> {{ cate.name }}</li>-->
-<!--                        {% endfor %}-->
-<!--                    </ul>-->
+                <!--                <div class="dropdown">-->
+                <!--                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"-->
+                <!--                            aria-expanded="false">-->
+                <!--                        Danh mục-->
+                <!--                    </button>-->
+                <!--                    <ul class="dropdown-menu">-->
+                <!--                        {% for cate in categories %}-->
+                <!--                        <li class="dropdown-item" href="/?category_id={{cate.id}}"> {{ cate.name }}</li>-->
+                <!--                        {% endfor %}-->
+                <!--                    </ul>-->
 
-<!--                </div>-->
+                <!--                </div>-->
 
                 {% if current_user.is_authenticated %}
                 <lic class="nav-item">
@@ -76,7 +77,9 @@
                     <a class="nav-link text-warning" href="/login">Đăng nhập</a>
                 </li>
                 {% endif %}
-
+                <li class="nav-item">
+                    <a class="nav-link text-warning" href="/cart">&#128722; Giỏ hàng</a>
+                </li>
             </ul>
             <!--            Tìm kiếm -->
             <form class="d-flex" action="/">

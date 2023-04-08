@@ -1,8 +1,9 @@
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session
 from QuanLy import app, dao
 from QuanLy import admin
 from QuanLy import login
 from flask_login import login_user, logout_user
+import cloudinary.uploader
 
 
 @app.route("/")
@@ -65,6 +66,49 @@ def my_logout():
 @login.user_loader
 def get_user(user_id):
     return dao.get_user_by_id(user_id)
+
+
+@app.route('/order/<int:product_id>')
+def order_item(product_id):
+    p = dao.get_product_by_id(product_id)
+
+    cart = {}
+    if 'cart' in session:
+        cart = session['çart']
+
+    product_id = str(product_id)
+    if product_id in cart:
+        cart[product_id]['quantity'] = cart[product_id]['quantity'] + 1
+    else:
+        cart[product_id] = {
+            "ïd": p.id,
+            "name": p.name,
+            "price": p.price,
+            "quantity": 1
+        }
+    session['çart'] = cart
+
+    return redirect('/çart')
+
+
+
+@app.route("/cart")
+def cart():
+    # session['cart'] = {
+    #     "1": {
+    #         "ïd": 1,
+    #         "name": "Sách giáo dục",
+    #         "price": 18000,
+    #         "quantity": 2
+    #     }, "2": {
+    #         "ïd": 2,
+    #         "name": "Sách toán",
+    #         "price": 25000,
+    #         "quantity": 1
+    #     }
+    # }
+    return render_template('cart.html')
+
 
 
 if __name__ == '__main__':

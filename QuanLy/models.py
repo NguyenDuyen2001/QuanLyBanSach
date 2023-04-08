@@ -7,7 +7,7 @@ class User(db.Model, UserMixin):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100), nullable=False)
     avatar = Column(String(100))
-    username = Column(String(100), nullable=False)
+    username = Column(String(100), nullable=False, unique=True)
     password = Column(String(100), nullable=False)
     user_role = Column(String(100), default='USER')
 
