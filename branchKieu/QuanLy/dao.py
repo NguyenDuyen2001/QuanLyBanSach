@@ -1,4 +1,4 @@
-from QuanLy.models import Users, Roles
+from QuanLy.models import Users, Roles, Regulations, Logic
 from QuanLy import db, app
 from sqlalchemy import func
 import hashlib
@@ -24,3 +24,11 @@ def get_users():
 
 def auth_user(username):
     return Users.query.filter(Users.username==username)
+
+def get_regulations():
+    return Regulations.query.all()
+
+def add_logic(regID, type, value, unit):
+    logic = Logic(regID=regID, type=type, value=value, unit=unit)
+    db.session.add(logic)
+    db.session.commit()

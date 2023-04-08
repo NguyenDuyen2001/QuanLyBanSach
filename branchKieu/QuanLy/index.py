@@ -7,6 +7,7 @@ from QuanLy.models import Users, Roles
 def home():
     return render_template("base_manage.html")
 
+
 @app.route("/admin")
 def admin():
     return render_template('admin.html')
@@ -44,6 +45,34 @@ def register_process():
         msg = 'Tạo thành công'
 
     return render_template('register.html', msg=msg, getRole=getRole)
+
+
+@app.route("/admin/regulations")
+def regulations():
+    getReg = dao.get_regulations()
+
+    return render_template('regulations.html', getReg=getReg)
+
+@app.route("/admin/regulations", methods=["POST"])
+def regulation_process():
+    getReg = dao.get_regulations()
+
+    reg_id = request.form["idReg"]
+    type = request.form["logicName"]
+    value = int(request.form["value"])
+    unit = request.form["unit"]
+
+    try:
+
+
+        dao.add_logic(regID=reg_id, type=type, value=value, unit=unit)
+        msg = 'Lưu thành công'
+    except Exception as ex:
+        msg = 'Lưu thất bại' + str(ex)
+
+    return render_template('regulations.html', getReg=getReg, msg=msg)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
