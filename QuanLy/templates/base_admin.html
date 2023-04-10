@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>KIẾN BOOKSTORE</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      html {
+        position: relative;
+        min-height: 100%;
+      }
+
+      .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: #f5f5f5;
+      }
+
+
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"> KIẾN BOOKSTORE </a>
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{ url_for('admin_home') }}"> Trang chủ </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('register') }}"> Đăng ký </a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Danh mục
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ url_for('categories') }}"> Xem danh sách </a></li>
+                <li><a class="dropdown-item" href="{{ url_for('cateCreate') }}"> Thêm </a></li>
+                <li><a class="dropdown-item" href="#"> Cập nhật </a></li>
+                <li><a class="dropdown-item" href="#"> Xóa </a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sản phẩm
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ url_for('products') }}"> Xem danh sách </a></li>
+                <li><a class="dropdown-item" href="{{ url_for('productCreate') }}"> Thêm </a></li>
+                <li><a class="dropdown-item" href="#"> Cập nhật </a></li>
+                <li><a class="dropdown-item" href="#"> Xóa </a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#"
+                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Quy định
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ url_for('regulations') }}"> Xem danh sách </a></li>
+                <li><a class="dropdown-item" href="{{ url_for('regCreate') }}"> Thêm </a></li>
+                <li><a class="dropdown-item" href="#"> Cập nhật </a></li>
+                <li><a class="dropdown-item" href="#"> Xóa </a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Thay đổi quy định
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ url_for('logics') }}"> Xem danh sách </a></li>
+                <li><a class="dropdown-item" href="{{ url_for('logicCreate') }}"> Thêm </a></li>
+                <li><a class="dropdown-item" href="#"> Cập nhật </a></li>
+                <li><a class="dropdown-item" href="#"> Xóa </a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Thống kê
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#"> Theo ngày </a></li>
+                <li><a class="dropdown-item" href="#"> Theo tháng </a></li>
+                <li><a class="dropdown-item" href="#"> Theo năm </a></li>
+              </ul>
+            </li>
+
+            {% if current_user.is_authenticated %}
+              <lic class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <image src="{{ current_user.avatar}}" width="40" class="rounded-circle"/>
+                    {{ current_user.name }}
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{{ url_for('my_logout') }}"> Đăng xuất </a></li>
+                </ul>
+              </lic>
+<!--            {% else %}-->
+<!--              <li class="nav-item">-->
+<!--                  <a class="nav-link text-warning" href="/login">Đăng nhập</a>-->
+<!--              </li>-->
+            {% endif %}
+
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit"> Tìm kiếm </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">{% block content %} {% endblock %}</div>
+
+    <footer class="footer mt-auto py-3 bg-light">
+      <div class="container-fluid">
+        <nav class="navbar bg-body-tertiary">
+          <a class="navbar-brand" href="#">
+            <span class="text-muted"> Copyright by Kien Bookstore </span>
+          </a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

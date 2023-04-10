@@ -1,0 +1,82 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+
+
+<style>
+    h1 {
+      text-align: center;
+      position: relative;
+      top: 10px
+    }
+
+  </style>
+
+  <h1> THÊM LOẠI SẢN PHẨM </h1>
+
+    {% if msg %}
+        <div class="alert alert-danger">
+          {{ msg }}
+        </div>
+    {% endif %}
+
+
+  <form class="row g-3" method="post">
+
+    <div class="col-md-6">
+      <label for="inputName" class="form-label"> Tên sản phẩm </label>
+      <input name="productName" type="text" class="form-control" id="inputName">
+    </div>
+
+    <div class="col-md-6">
+      <label for="inputCate" class="form-label"> Loại sản phẩm </label>
+      <select name="category" id="inputCate" class="form-select">
+        <option value=""> Chọn </option>';
+              {% for row in getCate %}
+                  <option value="{{ row.id }}">{{ row.name }}</option>';
+              {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="inputPrice" class="form-label"> Giá </label>
+      <input name="price" type="text" class="form-control" id="inputPrice">
+    </div>
+
+    <div class="col-md-4">
+      <label for="inputQty" class="form-label"> Số lượng </label>
+      <input name="qty" type="text" class="form-control" id="inputQty">
+    </div>
+
+    <div class="col-md-2">
+      <label for="inputFull" class="form-label"> Tình trạng tồn </label>
+      <select name="isFull" id="inputFull" class="form-select">
+        <option selected> Chọn </option>
+        <option> Thiếu </option>
+        <option> Đủ </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"> Mô tả sản phẩm </label>
+      <textarea name="desciption" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="formFileSm" class="form-label"> Hình ảnh </label>
+      <input name="image" class="form-control form-control-sm" id="formFileSm" type="file">
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button class="btn btn-primary" type="submit"> Lưu </button>
+    </div>
+  </form>
+
+
+
+
+
+
+
+
+{% endblock %}
