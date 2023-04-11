@@ -10,7 +10,9 @@ def get_categories():
 
 
 def get_products(kw=None, category_id=None):
-    query = Product.query.filter(Product.is_active == 1)
+    query = Product.query.join(Category,
+                               Product.category_id == Category.id) \
+                .filter(and_(Product.is_active == 1, Category.is_active == 1))
 
     if kw:
         query = query.filter(Product.name.contains(kw))
@@ -87,7 +89,10 @@ def add_users(name, phone, username, password, user_role):
 
 
 def get_product_all():
-    query = Product.query.filter(Product.is_active == 1).all()
+    query = Product.query.join(Category,
+                               Product.category_id == Category.id) \
+                .filter(and_(Product.is_active == 1, Category.is_active == 1)) \
+                .all()
     return query
 
 def add_product(name, desc, price, image, category_id, qty, is_full):
