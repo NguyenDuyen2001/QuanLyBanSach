@@ -1,0 +1,57 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+
+  <style>
+    h1 {
+      text-align: center;
+      position: relative;
+      top: 10px
+    }
+
+  </style>
+
+  <h1> ĐĂNG KÝ TÀI KHOẢN </h1>
+
+    {% if msg %}
+    <div class="alert alert-danger">
+      {{ msg }}
+    </div>
+    {% endif %}
+   <!-- Layout -->
+        <form method="post" class="row g-3">
+
+          <div class="col-12">
+            <label for="name" class="form-label"> Họ và tên </label>
+            <input type="text" class="form-control" id="name" name="name">
+          </div>
+
+          <div class="col-md-6">
+            <label for="username" class="form-label"> Tên đăng nhập </label>
+            <input type="text" class="form-control" id="username" name="username">
+          </div>
+
+          <div class="col-md-6">
+            <label for="password" class="form-label"> Mật khẩu </label>
+            <input type="password" class="form-control" id="password" name="password">
+          </div>
+
+          <div class="col-12">
+            <label for="phone" class="form-label"> Số điện thoại </label>
+            <input type="text" class="form-control" id="phone" placeholder="0977945xxx" name="phone">
+          </div>
+
+           <div class="col-12">
+            <label for="user_role" class="form-label"> Quyền quản trị </label>
+            <input type="text" class="form-control" id="user_role" name="user_role">
+          </div>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a id="btnClose" class="btn btn-secondary" href="{{ url_for('admin_home') }}"> Đóng </a>
+            <button class="btn btn-primary" type="submit"> Đăng ký </button>
+          </div>
+        </form>
+    <!-- End layout -->
+
+
+{% endblock %}

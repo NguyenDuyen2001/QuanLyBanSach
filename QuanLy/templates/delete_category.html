@@ -1,0 +1,45 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+
+
+<style>
+    h1 {
+      text-align: center;
+      position: relative;
+      top: 10px
+    }
+
+  </style>
+
+  <h1> XÓA LOẠI SẢN PHẨM </h1>
+
+
+    <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"> Mã </th>
+              <th scope="col"> Tên </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in tableCate %}
+              <tr>
+                <th scope="row"> {{ row.id }} </th>
+                <td> {{ row.name }} </td>
+                <td>
+                    <form method="post" action="/admin/home/categories/delete/{{ row.id }}">
+                        <input name="idDel" type="submit" value="Xóa" class="btn btn-danger"/>
+                    </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+    </table>
+
+
+
+
+
+
+{% endblock %}

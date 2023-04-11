@@ -1,0 +1,42 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+
+
+<style>
+    h1 {
+      text-align: center;
+      position: relative;
+      top: 10px
+    }
+
+  </style>
+
+  <h1> THÊM DANH MỤC QUY ĐỊNH </h1>
+
+    {% if msg %}
+        <div class="alert alert-danger">
+          {{ msg }}
+        </div>
+    {% endif %}
+
+  <div class="container">
+    <form class="row g-3" method="post">
+      <div class="col-md-6">
+        <label for="nameLogic" class="form-label"> Tên loại quy định </label>
+        <input name="namelogic" type="text" class="form-control" id="nameLogic">
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary"> Thêm </button>
+      </div>
+    </form>
+  </div>
+
+
+
+
+
+
+
+{% endblock %}

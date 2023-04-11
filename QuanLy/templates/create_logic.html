@@ -1,0 +1,68 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+
+
+<style>
+    h1 {
+      text-align: center;
+      position: relative;
+      top: 10px
+    }
+
+  </style>
+
+  <h1> THÊM QUY ĐỊNH </h1>
+
+    {% if msg %}
+        <div class="alert alert-danger">
+          {{ msg }}
+        </div>
+    {% endif %}
+
+
+  <form class="row g-3" method="post">
+
+    <div class="col-12">
+      <label for="inputReg" class="form-label"> Tên quy định </label>
+      <select name="regulation" id="inputReg" class="form-select">
+        <option value=""> Chọn </option>';
+              {% for row in getReg %}
+                  <option value="{{ row.id }}">{{ row.name }}</option>';
+              {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-2">
+      <label for="inputType" class="form-label"> Min/ Max </label>
+      <select name="type" id="inputType" class="form-select">
+        <option value=""> Chọn </option>';
+          <option> Min </option>
+          <option> Max </option>
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="inputValue" class="form-label"> Giá trị </label>
+      <input name="value" type="text" class="form-control" id="inputValue" placeholder="500">
+    </div>
+
+    <div class="col-md-4">
+      <label for="inputUnit" class="form-label"> Đơn vị </label>
+      <input name="unit" type="text" class="form-control" id="inputUnit">
+    </div>
+
+    
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button class="btn btn-primary" type="submit"> Lưu </button>
+    </div>
+  </form>
+
+
+
+
+
+
+
+
+{% endblock %}

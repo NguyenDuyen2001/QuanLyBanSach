@@ -1,0 +1,109 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+
+
+<style>
+    h1 {
+      text-align: center;
+      position: relative;
+      top: 10px
+    }
+
+  </style>
+
+  <h1> CẬP NHẬT LOẠI SẢN PHẨM </h1>
+
+    {% if msg %}
+      <div class="alert alert-danger">
+        {{ msg }}
+      </div>
+    {% endif %}
+
+    <div class="col-12">
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"> Mã </th>
+              <th scope="col"> Tên </th>
+              <th scope="col"> Mô tả sản phẩm </th>
+              <th scope="col"> Đơn giá </th>
+              <th scope="col"> Số lượng </th>
+              <th scope="col"> Link hình ảnh </th>
+              <th scope="col"> Mã loại sản phẩm </th>
+              <th scope="col"> Tình trạng tồn kho </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in getProductByID %}
+              <tr>
+                <th scope="row"> {{ row.id }} </th>
+                <td> {{ row.name }} </td>
+                <td> {{ row.description }} </td>
+                <td> {{ row.price }} </td>
+                <td> {{ row.qty }} </td>
+                <td> {{ row.image }} </td>
+                <td> {{ row.category_id }} </td>
+                {% if row.is_full == 1 %}
+                  <td> Thiếu </td>
+                {% else %}
+                  <td> Đủ </td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    </div>
+<form class="col-md-8" method="POST">
+    <div class="col-md-6">
+      <label for="inputNewName" class="form-label"> Tên mới </label>
+      <input name="newName" type="text" class="form-control" id="inputNewName">
+    </div>
+
+      <div class="col-md-6">
+        <label for="inputCate" class="form-label"> Loại sản phẩm </label>
+        <input name="category" id="inputCate"
+               class="form-control" type="text" placeholder="{{ row.category_id }}"
+               aria-label="Disabled input example" disabled>
+      </div>
+
+      <div class="col-md-6">
+        <label for="inputQty" class="form-label"> Số lượng </label>
+        <input name="qty" class="form-control" type="text" placeholder="{{ row.qty }}" id="inputQty">
+      </div>
+
+      <div class="col-md-4">
+        <label for="inputPrice" class="form-label"> Giá </label>
+        <input name="price" class="form-control" type="text" placeholder="{{ row.price }}" id="inputPrice">
+      </div>
+
+      <div class="col-md-2">
+        <label for="inputIsFull" class="form-label"> Tình trạng tồn kho (Thiếu/ Đủ) </label>
+        <input name="isFull" class="form-control" type="text" placeholder="{{ row.is_full }}" id="inputIsFull">
+      </div>
+
+      <div class="mb-3">
+        <label for="descriptionExample" class="form-label"> Mô tả sản phẩm </label>
+        <textarea name="desciption"
+                  class="form-control" id="descriptionExample" rows="3" placeholder="{{ row.description }}"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="formFileSm" class="form-label"> Hình ảnh </label>
+        <input name="image" class="form-control form-control-sm" id="formFileSm" type="file" placeholder="{{ row.image }}">
+      </div>
+
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button class="btn btn-primary" type="submit"> Lưu </button>
+    </div>
+  </form>
+
+
+
+
+
+
+
+
+{% endblock %}
