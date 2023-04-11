@@ -3,7 +3,7 @@ from QuanLy import app, dao
 from QuanLy.models import User
 # from QuanLy import admin
 from QuanLy import login
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 import cloudinary.uploader
 
 
@@ -105,8 +105,6 @@ def register():
 @app.route("/admin/home/register", methods=["POST"])
 def register_process():
 
-    # getRole = dao.get_roles()
-
     if request.form['username'] != User.query.filter(User.username == request.form['username']):
 
         name = request.form["name"]
@@ -132,8 +130,13 @@ def regulations():
 
     return render_template('regulations.html', tableReg=tableReg)
 
-@app.route("/admin/home/regulations/create", methods=['POST'])
+
+@app.route("/admin/home/regulations/create")
 def regCreate():
+    return render_template('create_regulation.html')
+
+@app.route("/admin/home/regulations/create", methods=['POST'])
+def regCreate_process():
     name = request.form['namelogic']
 
     try:
@@ -145,9 +148,42 @@ def regCreate():
 
     return render_template('create_regulation.html', msg=msg)
 
+@app.route("/admin/home/regulations/update")
+def regUpdate():
+    getReg = dao.get_regulations()
+    return render_template('update_regulation.html', getReg=getReg)
+
+@app.route("/admin/home/regulations/update", methods=['POST'])
+def regUpdate_process():
+    getReg = dao.get_regulations()
+
+    id = request.form['regulation']
+    name = request.form['newName']
+
+    try:
+
+        dao.update_regulations(id=id, name=name)
+        msg = 'Cập nhật thành công'
+    except Exception as ex:
+        msg = 'Cập nhật thất bại' + str(ex)
+
+    return render_template('update_regulation.html', msg=msg, getReg=getReg)
 
 
+@app.route("/admin/home/regulations/delete")
+def regDel():
+    tableReg = dao.get_regulations()
+    return render_template('delete_regulation.html', tableReg=tableReg)
 
+@app.route("/admin/home/regulations/delete/<id>", methods=['POST'])
+def regDel_process(id):
+    try:
+
+        dao.delete_regulations(id=id)
+    except Exception as ex:
+        return str(ex)
+
+    return redirect('/admin/home/regulations/delete')
 
 
 @app.route("/admin/home/logics")
@@ -158,9 +194,9 @@ def logics():
 
 @app.route("/admin/home/logics/create")
 def logicCreate():
-    getReg = dao.get_regulations()
+    tableLogic = dao.get_logic()
 
-    return render_template('create_logic.html', getReg=getReg)
+    return render_template('create_logic.html', tableLogic=tableLogic)
 
 @app.route("/admin/home/logics/create", methods=['POST'])
 def logicCreate_process():
@@ -169,7 +205,7 @@ def logicCreate_process():
     regID = request.form['regulation']
     type = request.form['type']
     value = int(request.form['value'])
-    unit = int(request.form['unit'])
+    unit = request.form['unit']
 
     try:
 
@@ -181,17 +217,34 @@ def logicCreate_process():
     return render_template('create_logic.html', msg=msg, getReg=getReg)
 
 
+@app.route("/admin/home/logics/delete")
+def logicDel():
+    tableLogic = dao.get_logic()
+    return render_template('delete_logic.html', tableLogic=tableLogic)
 
+@app.route("/admin/home/logics/delete/<id>", methods=['POST'])
+def logicDel_process(id):
+    try:
+
+        dao.delete_logic(id)
+    except Exception as ex:
+        return str(ex)
+
+    return redirect('/admin/home/logics/delete')
 
 
 @app.route("/admin/home/categories")
 def categories():
-    tableCat = dao.get_categories()
+    tableCate = dao.get_categories()
 
-    return render_template('categories.html', tableCat=tableCat)
+    return render_template('categories.html', tableCate=tableCate)
+
+@app.route("/admin/home/categories/create")
+def cateCreate():
+    return render_template('create_category.html')
 
 @app.route("/admin/home/categories/create", methods=["POST"])
-def cateCreate():
+def cateCreate_process():
 
     name = request.form['nameCate']
 
@@ -204,7 +257,44 @@ def cateCreate():
 
     return render_template('create_category.html', msg=msg)
 
+@app.route("/admin/home/categories/update")
+def cateUpdate():
+    getCate = dao.get_categories()
+    return render_template('update_category.html', getCate=getCate)
 
+@app.route("/admin/home/categories/update", methods=['POST'])
+def cateUpdate_process():
+    getCate = dao.get_categories()
+
+    id = request.form['cate_id']
+    name = request.form['newName']
+
+    try:
+
+        dao.update_category(id=id, name=name)
+        msg = 'Cập nhật thành công'
+    except Exception as ex:
+        msg = 'Cập nhật thất bại' + str(ex)
+
+    return render_template('update_category.html', msg=msg, getCate=getCate)
+
+
+@app.route("/admin/home/categories/delete")
+def cateDel():
+    tableCate = dao.get_categories()
+
+    return render_template('delete_category.html', tableCate=tableCate)
+
+@app.route("/admin/home/categories/delete/<id>", methods=['POST'])
+def cateDel_process(id):
+
+    try:
+
+        dao.delete_category(id=id)
+    except Exception as ex:
+        return str(ex)
+
+    return redirect('/admin/home/categories/delete')
 
 
 
@@ -213,6 +303,7 @@ def products():
     tableProduct = dao.get_product_all()
 
     return render_template('products.html', tableProduct=tableProduct)
+
 
 @app.route("/admin/home/products/create")
 def productCreate():
@@ -242,11 +333,44 @@ def productCreate_process():
 
     return render_template('create_product.html', msg=msg, getCate=getCate)
 
+@app.route("/admin/home/products/update")
+def productUpdate():
+    getProductName = dao.get_product_all()
 
 
+    return render_template('update_product.html', getProductName=getProductName)
+
+@app.route("/admin/home/products/update", methods=['POST'])
+def productUpdate_process():
+    getProduct = dao.get_product_all()
+
+    product_id = request.form['productName']
+
+    getProductByID = dao.get_product_by_id(product_id=product_id)
+
+    return render_template('update_product.html', getProduct=getProduct, getProductByID=getProductByID)
+
+
+@app.route("/admin/home/products/delete")
+def productDel():
+    tableProduct = dao.get_product_all()
+    return render_template('delete_product.html', tableProduct=tableProduct)
+
+@app.route("/admin/home/products/delete/<id>", methods=['POST'])
+def productDel_process(id):
+    try:
+
+        dao.delete_product(id=id)
+    except Exception as ex:
+        return str(ex)
+
+    return redirect('/admin/home/products/delete')
 
 
 # end for admin
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

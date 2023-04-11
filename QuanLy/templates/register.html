@@ -11,7 +11,7 @@
 
   </style>
 
-  <h1> ĐĂNG KÝ </h1>
+  <h1> ĐĂNG KÝ TÀI KHOẢN </h1>
 
     {% if msg %}
     <div class="alert alert-danger">
@@ -46,15 +46,6 @@
             <input type="text" class="form-control" id="user_role" name="user_role">
           </div>
 
-<!--          <div class="col-12">-->
-<!--            <label for="inputRole" class="form-label"> Quyền quản trị </label>-->
-<!--            <select name="idRole" id="inputRole" class="form-select">-->
-<!--              <option value=""> Chọn </option>';-->
-<!--                    {% for row in getRole %}-->
-<!--                        <option value="{{ row.id }}">{{ row.name_role }}</option>';-->
-<!--                    {% endfor %}-->
-<!--            </select>-->
-<!--          </div>-->
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <a id="btnClose" class="btn btn-secondary" href="{{ url_for('admin_home') }}"> Đóng </a>
             <button class="btn btn-primary" type="submit"> Đăng ký </button>

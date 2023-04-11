@@ -62,8 +62,8 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="{{ url_for('categories') }}"> Xem danh sách </a></li>
                 <li><a class="dropdown-item" href="{{ url_for('cateCreate') }}"> Thêm </a></li>
-                <li><a class="dropdown-item" href="#"> Cập nhật </a></li>
-                <li><a class="dropdown-item" href="#"> Xóa </a></li>
+                <li><a class="dropdown-item" href="{{ url_for('cateUpdate') }}"> Cập nhật </a></li>
+                <li><a class="dropdown-item" href="{{ url_for('cateDel') }}"> Xóa </a></li>
               </ul>
             </li>
 
@@ -74,8 +74,8 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="{{ url_for('products') }}"> Xem danh sách </a></li>
                 <li><a class="dropdown-item" href="{{ url_for('productCreate') }}"> Thêm </a></li>
-                <li><a class="dropdown-item" href="#"> Cập nhật </a></li>
-                <li><a class="dropdown-item" href="#"> Xóa </a></li>
+                <li><a class="dropdown-item" href="{{ url_for('productUpdate') }}"> Cập nhật </a></li>
+                <li><a class="dropdown-item" href="{{ url_for('productDel') }}"> Xóa </a></li>
               </ul>
             </li>
 
@@ -87,8 +87,8 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="{{ url_for('regulations') }}"> Xem danh sách </a></li>
                 <li><a class="dropdown-item" href="{{ url_for('regCreate') }}"> Thêm </a></li>
-                <li><a class="dropdown-item" href="#"> Cập nhật </a></li>
-                <li><a class="dropdown-item" href="#"> Xóa </a></li>
+                <li><a class="dropdown-item" href="{{ url_for('regUpdate') }}"> Cập nhật </a></li>
+                <li><a class="dropdown-item" href="{{ url_for('regDel') }}"> Xóa </a></li>
               </ul>
             </li>
 
@@ -100,7 +100,7 @@
                 <li><a class="dropdown-item" href="{{ url_for('logics') }}"> Xem danh sách </a></li>
                 <li><a class="dropdown-item" href="{{ url_for('logicCreate') }}"> Thêm </a></li>
                 <li><a class="dropdown-item" href="#"> Cập nhật </a></li>
-                <li><a class="dropdown-item" href="#"> Xóa </a></li>
+                <li><a class="dropdown-item" href="{{ url_for('logicDel') }}"> Xóa </a></li>
               </ul>
             </li>
 
@@ -133,7 +133,7 @@
 
           </ul>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
             <button class="btn btn-outline-success" type="submit"> Tìm kiếm </button>
           </form>
         </div>

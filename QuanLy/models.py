@@ -20,6 +20,7 @@ class Regulations(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(255), nullable=False)
     logic = relationship('Logic', backref='regulations', lazy=False)
+    is_active = Column(Boolean, default=1)
 
 
 class Logic(db.Model):
@@ -28,11 +29,13 @@ class Logic(db.Model):
     type = Column(String(50), nullable=False)
     value = Column(Integer)
     unit = Column(String(50))
+    is_active = Column(Boolean, default=1)
 
 class Category(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), nullable=False)
     products = relationship('Product', backref='category', lazy=True)
+    is_active = Column(Boolean, default=1)
 
 
 class Product(db.Model):
@@ -44,6 +47,7 @@ class Product(db.Model):
     category_id = Column(Integer, ForeignKey(Category.id))
     qty = Column(Integer, nullable=False)
     is_full = Column(Boolean, nullable=False)
+    is_active = Column(Boolean, default=1)
 
 
 

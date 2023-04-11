@@ -1,0 +1,52 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+
+
+<style>
+    h1 {
+      text-align: center;
+      position: relative;
+      top: 10px
+    }
+
+  </style>
+
+  <h1> CẬP NHẬT DANH MỤC QUY ĐỊNH </h1>
+
+    {% if msg %}
+        <div class="alert alert-danger">
+          {{ msg }}
+        </div>
+    {% endif %}
+
+
+    <form class="row g-3" method="post">
+      <div class="col-12">
+          <label for="inputRegulation" class="form-label"> Loại sản phẩm </label>
+          <select name="regulation" id="inputRegulation" class="form-select">
+            <option value=""> Chọn </option>';
+                  {% for row in getReg %}
+                      <option value="{{ row.id }}">{{ row.name }}</option>';
+                  {% endfor %}
+          </select>
+      </div>
+
+      <div class="col-md-6">
+          <label for="inputName" class="form-label"> Giá trị mới </label>
+          <input name="newName" type="text" class="form-control" id="inputName">
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary"> Thêm </button>
+      </div>
+    </form>
+
+
+
+
+
+
+
+
+{% endblock %}
