@@ -1,4 +1,6 @@
-from sqlalchemy import Column, String, Integer, Text, Float, ForeignKey, Boolean
+import datetime
+
+from sqlalchemy import Column, String, Integer, Text, Float, ForeignKey, Boolean, DateTime
 from QuanLy import db, app
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
@@ -48,7 +50,25 @@ class Product(db.Model):
     qty = Column(Integer, nullable=False)
     is_full = Column(Boolean, nullable=False)
     is_active = Column(Boolean, default=1)
+    # recieptdetails = relationship('RecieptDetails', backref='product', lazy=True)
 
+# class Receipt(db.Model):
+#     id = Column(Integer, primary_key=True, autoincrement=True)
+#     create_date = Column(DateTime, nullable=False)
+#     name = Column(String(50), nullable=False)
+#     phone = Column(String(20), nullable=False)
+#     address = Column(String(200), nullable=False)
+#     note = Column(String(255))
+#     at_shop = Column(Boolean, default=0)
+#     status = Column(String(50), nullable=False)
+#     recieptdetails = products = relationship('ReceiptDetails', backref='reciept', lazy=True)
+#
+# class ReceiptDetails(db.Model):
+#     id = Column(Integer, primary_key=True, autoincrement=True)
+#     receipt_id = Column(Integer, ForeignKey(Receipt.id))
+#     product_id = Column(Integer, ForeignKey(Product.id))
+#     qty = Column(Integer, nullable=False)
+#     unit_price = Column(Integer, nullable=False)
 
 
 def AddRegulations():

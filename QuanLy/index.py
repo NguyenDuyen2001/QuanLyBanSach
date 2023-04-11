@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, session
 from QuanLy import app, dao
 from QuanLy.models import User
-# from QuanLy import admin
+# from flask_login import LoginManager
 from QuanLy import login
 from flask_login import login_user, logout_user, login_required
 import cloudinary.uploader
@@ -54,7 +54,18 @@ def cart():
 
     return render_template('cart.html')
 
+@app.route('/cart/<product_id>', methods=['post'])
+def delete_cart_item(product_id):
+    cart = session.get('cart')
+    if cart and product_id in cart:
+        del cart[product_id]
+        session['cart'] = cart
+
+    return redirect('/cart')
+
 # begin for admin
+
+
 
 #### admin login to system
 @app.route('/login')
@@ -66,7 +77,7 @@ def my_login():
 def my_login_process():
     username = request.form['username']
     password = request.form['password']
-    u = dao.auth_user(username, password)
+    u = dao.auth_user(username=username, password=password)
     if u:
         login_user(user=u)
         return redirect('/admin/home')
@@ -194,9 +205,9 @@ def logics():
 
 @app.route("/admin/home/logics/create")
 def logicCreate():
-    tableLogic = dao.get_logic()
+    getReg = dao.get_regulations()
 
-    return render_template('create_logic.html', tableLogic=tableLogic)
+    return render_template('create_logic.html', getReg=getReg)
 
 @app.route("/admin/home/logics/create", methods=['POST'])
 def logicCreate_process():
@@ -333,23 +344,46 @@ def productCreate_process():
 
     return render_template('create_product.html', msg=msg, getCate=getCate)
 
-@app.route("/admin/home/products/update")
-def productUpdate():
-    getProductName = dao.get_product_all()
+@app.route("/admin/home/products/update/choice")
+def productUpdate_choice():
+    tableProduct= dao.get_product_all()
 
+    return render_template('choice_product.html', tableProduct=tableProduct)
 
-    return render_template('update_product.html', getProductName=getProductName)
+@app.route("/admin/home/products/update/choice", methods=['POST'])
+def productUpdateChoice_process():
+    id = request.form['idUpdate']
 
-@app.route("/admin/home/products/update", methods=['POST'])
-def productUpdate_process():
-    getProduct = dao.get_product_all()
+    return redirect('/admin/home/products/update/<id>')
 
-    product_id = request.form['productName']
+@app.route("/admin/home/products/update/<id>")
+def productUpdate(id):
 
-    getProductByID = dao.get_product_by_id(product_id=product_id)
+    getProductByID = dao.get_product_by_id(product_id=id)
+    return render_template('update_product.html', getProductByID=getProductByID)
 
-    return render_template('update_product.html', getProduct=getProduct, getProductByID=getProductByID)
+@app.route("/admin/home/products/update/<id>", methods=['POST'])
+def productUpdate_process(id):
 
+    getProductByID = dao.get_product_by_id(product_id=id)
+    name = request.form['newName']
+
+    qty = request.form['qty']
+    price = request.form['price']
+    if request.form['isFull'] == 'Thiếu':
+        isFull = 0
+    else:
+        isFull = 1
+    desciption = request.form['desciption']
+    image = request.form['image']
+
+    try:
+        dao.update_product(id=id, name=name, desc=desciption, price=price, img=image, qty=qty, is_full=isFull)
+        msg = 'Lưu thành công'
+    except Exception as ex:
+        msg = 'Lưu thất bại' + str(ex)
+
+    return render_template('update_product.html', getProductByID=getProductByID, msg=msg)
 
 @app.route("/admin/home/products/delete")
 def productDel():

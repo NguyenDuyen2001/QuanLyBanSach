@@ -40,8 +40,8 @@ def get_users():
     return User.query.all()
 
 
-def auth_user(username):
-    return User.query.filter(User.username==username)
+# def auth_user(username):
+#     return User.query.filter(User.username==username)
 
 def get_regulations():
     query = Regulations.query.filter(Regulations.is_active == 1).all()

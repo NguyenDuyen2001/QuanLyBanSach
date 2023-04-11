@@ -17,16 +17,21 @@
     <table class="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
               <th scope="col"> Mã quy định </th>
-              <th scope="col"> Mã quy định </th>
+              <th scope="col"> Mã danh mục quy định </th>
+              <th scope="col"> Kiểu </th>
+              <th scope="col"> Giá trị </th>
+              <th scope="col"> Đơn vị </th>
             </tr>
           </thead>
           <tbody>
             {% for row in tableLogic %}
               <tr>
                 <th scope="row"> {{ row.id }} </th>
-                <td> {{ row.name }} </td>
+                <td> {{ row.regID }} </td>
+                <td> {{ row.type }} </td>
+                <td> {{ row.value }} </td>
+                <td> {{ row.unit }} </td>
               </tr>
             {% endfor %}
           </tbody>

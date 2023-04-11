@@ -74,7 +74,7 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="{{ url_for('products') }}"> Xem danh sách </a></li>
                 <li><a class="dropdown-item" href="{{ url_for('productCreate') }}"> Thêm </a></li>
-                <li><a class="dropdown-item" href="#"> Cập nhật </a></li>
+<!--                <li><a class="dropdown-item" href="#"> Cập nhật </a></li>-->
                 <li><a class="dropdown-item" href="{{ url_for('productDel') }}"> Xóa </a></li>
               </ul>
             </li>
@@ -99,32 +99,31 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="{{ url_for('logics') }}"> Xem danh sách </a></li>
                 <li><a class="dropdown-item" href="{{ url_for('logicCreate') }}"> Thêm </a></li>
-                <li><a class="dropdown-item" href="#"> Cập nhật </a></li>
-                <li><a class="dropdown-item" href="#"> Xóa </a></li>
+<!--                <li><a class="dropdown-item" href="#"> Cập nhật </a></li>-->
+                <li><a class="dropdown-item" href="{{ url_for('logicDel') }}"> Xóa </a></li>
               </ul>
             </li>
 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Thống kê
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#"> Theo ngày </a></li>
-                <li><a class="dropdown-item" href="#"> Theo tháng </a></li>
-                <li><a class="dropdown-item" href="#"> Theo năm </a></li>
-              </ul>
-            </li>
+<!--            <li class="nav-item dropdown">-->
+<!--              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                Thống kê-->
+<!--              </a>-->
+<!--              <ul class="dropdown-menu">-->
+<!--                <li><a class="dropdown-item" href="#"> Theo danh mục sản phẩm </a></li>-->
+<!--                <li><a class="dropdown-item" href="#"> Theo tần suất từng đầu sách </a></li>-->
+<!--              </ul>-->
+<!--            </li>-->
 
             {% if current_user.is_authenticated %}
-              <lic class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <image src="{{ current_user.avatar}}" width="40" class="rounded-circle"/>
-                    {{ current_user.name }}
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{{ url_for('my_logout') }}"> Đăng xuất </a></li>
-                </ul>
+              <lic class="nav-item">
+                  <a class="nav-link text-success" href="/admin/home">
+                      <image src="{{ current_user.avatar}}" width="40" class="rounded-circle"/>
+                      {{ current_user.name }}
+                  </a>
               </lic>
+              <li class="nav-item">
+                  <a class="nav-link text-danger" href="/admin/logout">Đăng xuất</a>
+              </li>
 <!--            {% else %}-->
 <!--              <li class="nav-item">-->
 <!--                  <a class="nav-link text-warning" href="/login">Đăng nhập</a>-->
